@@ -4,7 +4,7 @@ Question Answering models implemented with pytorch
 ## Dataset
 The WikiQA Dataset is used in this project repo for experimentation
 ##### Data Format
-* Intakes txt files
+* Intakes .txt files
 * Each row is a sample formatted:
   * Tokenized question, Tokenized candidate answer sentence, Label
 #### Reference
