@@ -1,6 +1,6 @@
 import utils
 import argparse
-from utils.setup import _download_embeddings
+from utils.setup import download_embeddings
 
 
 if __name__ == '__main__':
@@ -10,4 +10,4 @@ if __name__ == '__main__':
     parser.add_argument('--dir', required=True)
     opt = parser.parse_args()
 
-    _download_embeddings(opt.url, opt.filename, opt.dir)
+    download_embeddings(opt.url, opt.filename, opt.dir)

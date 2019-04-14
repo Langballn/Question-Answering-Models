@@ -3,9 +3,9 @@ from six.moves.urllib.request import urlretrieve
 import zipfile
 
 
-def _download_embeddings(download_url, filename, target_dir):
+def download_embeddings(download_url, filename, target_dir):
     '''
-    Function to download and unzip a file from a specifed URL to a specifed directory
+    Downloads and unzips a file from a specifed URL to a specifed directory
     '''
 
     # check that the target directory exists, if not create it
