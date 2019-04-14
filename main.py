@@ -9,7 +9,7 @@ def preprocess(train_file, dev_file, test_file, embed_file, q_len=None, a_len=No
     train_file: path of training data
     dev_file: path of development data
     test_file: path of test data
-    embed_file: path of embeddings
+    embed_file: path of embeddings data
     q_len (int): maximum question length (default is None)
     a_len (int): maximum answer length (default is None)
     stopwords (bool): whether to remove stop words (default is True)
@@ -24,7 +24,7 @@ def preprocess(train_file, dev_file, test_file, embed_file, q_len=None, a_len=No
         - answers.pkl
     mapping of words to indexes:
         - vocab.pkl
-    embeddings with weights saved at indexes of corresponding word:
+    matrix with weights saved at indexes of corresponding word:
         - embeddings.npz
     '''
 

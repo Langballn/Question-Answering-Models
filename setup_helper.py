@@ -1,4 +1,3 @@
-import utils
 import argparse
 from utils.setup import download_embeddings
 
