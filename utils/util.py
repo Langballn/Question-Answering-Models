@@ -14,6 +14,7 @@ class Preprocesser:
             'english')) if use_stopwords else None
         self.regex = re.compile(
             '[%s]' % re.escape(string.punctuation))  # remove punctuation
+        self.use_padding = use_padding  # option to pad sequences to max length
         self.vocab = {}  # vocabulary dictonary - assign each word to a number in order to index embedding vectors
         self.vocab_len = 0  # vocabulary length
         self.answers = {}
