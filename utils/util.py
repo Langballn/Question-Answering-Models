@@ -45,13 +45,23 @@ class Preprocesser:
                 # preprocess question and answers
                 question = self._preprocess_text(line[0])[: self.q_len]
                 answer = self._preprocess_text(line[1])[: self.a_len]
-                label = line[2]
+                label = int(line[2])
+
+                # pad sequences if less than max length
+                if self.use_padding:
+                    q_padding = (q_len - len(question)) * [-1]
+                    question.extend(q_padding)
+                    a_padding = (a_len - len(answer)) * [-1]
+                    answer.extend(a_padding)
+
                 # save question, answer and corresponding label
                 q_key = 'Q' + str(len(self.questions))
                 a_key = 'A' + str(len(self.answers))
                 self.answers[a_key] = answer
                 self.questions[q_key] = question
                 relation[(q_key, a_key)] = label
+
+        # save relations (question and answer pairs with corresponding label)
         f = open(out_filename, 'wb')
         pickle.dump(relation, f)
         f.close()
