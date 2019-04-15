@@ -81,7 +81,7 @@ class Preprocesser:
             np.sum(np.multiply(embeddings, embeddings), axis=1)).reshape(x_dim, 1)
         norm_embed = embeddings / magnitude
 
-        np.save('data/norm_embed', embeddings)
+        np.save('data/norm_embed', norm_embed)
 
     def preprocess(self, train_file, dev_file, test_file, embed_file):
         # preprocess test, dev and train sets and save to pkl
