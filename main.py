@@ -30,7 +30,7 @@ def preprocess(train_file, dev_file, test_file, embed_file, q_len=None, a_len=No
         - norm_embed.npz (normalized version)
     '''
 
-    preprocesser = Preprocesser(q_len, a_len, stopwords)
+    preprocesser = Preprocesser(q_len, a_len, use_stopwords, use_padding)
     preprocesser.preprocess(train_file, dev_file, test_file, embed_file)
 
 
@@ -43,5 +43,5 @@ if __name__ == '__main__':
 
     print('preprocessing dataset and embeddings ....')
     preprocess(train_file, dev_file, test_file, embed_file,
-               q_len=2, a_len=10, stopwords=True)
+               q_len=5, a_len=10)
     print('preprocessing is complete.')
