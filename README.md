@@ -6,7 +6,7 @@ The WikiQA Dataset is used in this project repo for experimentation
 ##### Data Format
 * Intakes .txt files
 * Each row is a sample formatted:
-  * Tokenized question \t Tokenized candidate answer sentence \t Label
+  * Tokenized question \t Tokenized candidate answer sentence \t Label \n
 #### Reference
 WikiQA: A Challenge Dataset for Open-Domain Question Answering [Yang et al. 2015]
 
