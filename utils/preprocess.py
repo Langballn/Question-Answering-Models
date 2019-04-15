@@ -16,7 +16,7 @@ class Preprocesser:
             '[%s]' % re.escape(string.punctuation))  # remove punctuation
         self.use_padding = use_padding  # option to pad sequences to max length
         self.vocab = {}  # vocabulary dictonary - assign each word to a number in order to index embedding vectors
-        self.vocab_len = 0  # vocabulary length
+        self.vocab_len = 1 if use_padding else 0  # vocabulary length
         self.answers = {}
         self.questions = {}
         self.relations = {}
@@ -92,9 +92,9 @@ class Preprocesser:
         norm_embed = embeddings / magnitude
 
         if self.use_padding:
-            pad = np.zeros((1, cols))
-            embeddings = np.append(pad, embeddings, axis=0)
-            norm_embed = np.append(pad, norm_embed, axis=0)
+            pad = np.zeros((cols, ))
+            embeddings[0] = pad
+            norm_embed[0] = pad
 
         np.save('data/embed', embeddings)
         np.save('data/norm_embed', norm_embed)
