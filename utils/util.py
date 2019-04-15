@@ -49,9 +49,9 @@ class Preprocesser:
 
                 # pad sequences if less than max length
                 if self.use_padding:
-                    q_padding = (q_len - len(question)) * [-1]
+                    q_padding = (self.q_len - len(question)) * [-1]
                     question.extend(q_padding)
-                    a_padding = (a_len - len(answer)) * [-1]
+                    a_padding = (self.a_len - len(answer)) * [-1]
                     answer.extend(a_padding)
 
                 # save question, answer and corresponding label
