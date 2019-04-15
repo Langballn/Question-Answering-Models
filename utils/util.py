@@ -49,9 +49,9 @@ class Preprocesser:
 
                 # pad sequences if less than max length
                 if self.use_padding:
-                    q_padding = (self.q_len - len(question)) * [-1]
+                    q_padding = (self.q_len - len(question)) * [0]
                     question.extend(q_padding)
-                    a_padding = (self.a_len - len(answer)) * [-1]
+                    a_padding = (self.a_len - len(answer)) * [0]
                     answer.extend(a_padding)
 
                 # save question, answer and corresponding label
@@ -94,8 +94,8 @@ class Preprocesser:
 
         if self.use_padding:
             pad = np.zeros((1, cols))
-            embeddings = np.append(embeddings, pad, axis=0)
-            norm_embed = np.append(norm_embed, pad, axis=0)
+            embeddings = np.append(pad, embeddings, axis=0)
+            norm_embed = np.append(pad, norm_embed, axis=0)
 
         np.save('data/embed', embeddings)
         np.save('data/norm_embed', norm_embed)
