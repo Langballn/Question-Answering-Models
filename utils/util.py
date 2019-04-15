@@ -62,15 +62,17 @@ class Preprocesser:
             for row in file:
                 line = row.split()
                 word = line[0]
-                vector = np.array(line[1:]).astype(float)
-                # initialize embedding weights to be a matrix of size vocab length and embedding dimension
-                # use randomly initialized values in case the pretrained embeddings do not contain the entire vocabulary
-                if embeddings is None:
-                    embeddings = np.random.rand(self.vocab_len, len(vector))
-                    embeddings[0] = np.zeros(len(vector))
-                # save pretrained weights vector at word index
+
                 if word in self.vocab:
+                    vector = np.array(line[1:]).astype(float)
                     idx = self.vocab[word]
+                    # initialize embedding weights to be a matrix of size vocab length and embedding dimension
+                    # use randomly initialized values in case the pretrained embeddings do not contain the entire vocabulary
+                    if embeddings is None:
+                        embeddings = np.random.rand(
+                            self.vocab_len, len(vector))
+                        embeddings[0] = np.zeros(len(vector))
+                    # save pretrained weights vector at word index
                     embeddings[idx] = vector
 
         np.save('data/embed', embeddings)
