@@ -8,15 +8,14 @@ from nltk.corpus import stopwords
 
 class Preprocesser:
     def __init__(self, q_len, a_len, use_stopwords=True):
-        self.q_len = None  # maximum question length
-        self.a_len = None  # maximum answer length
+        self.q_len = q_len  # maximum question length
+        self.a_len = a_len  # maximum answer length
         self.stop_words = set(stopwords.words(
             'english')) if use_stopwords else None
         self.regex = re.compile(
             '[%s]' % re.escape(string.punctuation))  # remove punctuation
         self.vocab = {}  # vocabulary dictonary - assign each word to a number in order to index embedding vectors
-        self.vocab['PADDING_VALUE'] = 0  # reserve 0th index for padding
-        self.vocab_len = 1  # vocabulary length
+        self.vocab_len = 0  # vocabulary length
         self.answers = {}
         self.questions = {}
 
@@ -74,7 +73,15 @@ class Preprocesser:
                     idx = self.vocab[word]
                     embeddings[idx] = vector
 
-        np.save('data/embeddings', embeddings)
+        np.save('data/embed', embeddings)
+
+        # normalize embeddings
+        x_dim = embeddings.shape[0]
+        magnitude = np.sqrt(
+            np.sum(np.multiply(embeddings, embeddings), axis=1)).reshape(x_dim, 1)
+        norm_embed = embeddings / magnitude
+
+        np.save('data/norm_embed', embeddings)
 
     def preprocess(self, train_file, dev_file, test_file, embed_file):
         # preprocess test, dev and train sets and save to pkl

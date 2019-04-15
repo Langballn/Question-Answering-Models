@@ -25,7 +25,8 @@ def preprocess(train_file, dev_file, test_file, embed_file, q_len=None, a_len=No
     mapping of words to indexes:
         - vocab.pkl
     matrix with weights saved at indexes of corresponding word:
-        - embeddings.npz
+        - embed.npz
+        - norm_embed.npz (normalized version)
     '''
 
     preprocesser = Preprocesser(q_len, a_len, stopwords)
@@ -41,5 +42,5 @@ if __name__ == '__main__':
 
     print('preprocessing dataset and embeddings ....')
     preprocess(train_file, dev_file, test_file, embed_file,
-               q_len=None, a_len=None, stopwords=True)
+               q_len=2, a_len=10, stopwords=True)
     print('preprocessing is complete.')
