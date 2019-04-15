@@ -7,7 +7,7 @@ from nltk.corpus import stopwords
 
 
 class Preprocesser:
-    def __init__(self, q_len, a_len, use_stopwords=True):
+    def __init__(self, q_len, a_len, use_stopwords=True, use_padding=True):
         self.q_len = q_len  # maximum question length
         self.a_len = a_len  # maximum answer length
         self.stop_words = set(stopwords.words(
@@ -75,14 +75,18 @@ class Preprocesser:
                     # save pretrained weights vector at word index
                     embeddings[idx] = vector
 
-        np.save('data/embed', embeddings)
-
         # normalize embeddings
-        x_dim = embeddings.shape[0]
+        (rows, cols) = embeddings.shape
         magnitude = np.sqrt(
-            np.sum(np.multiply(embeddings, embeddings), axis=1)).reshape(x_dim, 1)
+            np.sum(np.multiply(embeddings, embeddings), axis=1)).reshape(rows, 1)
         norm_embed = embeddings / magnitude
 
+        if self.use_padding:
+            pad = np.zeros((1, cols))
+            embeddings = np.append(embeddings, pad, axis=0)
+            norm_embed = np.append(norm_embed, pad, axis=0)
+
+        np.save('data/embed', embeddings)
         np.save('data/norm_embed', norm_embed)
 
     def preprocess(self, train_file, dev_file, test_file, embed_file):

@@ -1,7 +1,7 @@
 from utils.util import Preprocesser
 
 
-def preprocess(train_file, dev_file, test_file, embed_file, q_len=None, a_len=None, stopwords=True):
+def preprocess(train_file, dev_file, test_file, embed_file, q_len=None, a_len=None, use_stopwords=True, use_padding=True):
     '''
     Reads in pretrained embeddings, train, development, and test data then preprocesses and serializes results
 
@@ -12,7 +12,8 @@ def preprocess(train_file, dev_file, test_file, embed_file, q_len=None, a_len=No
     embed_file: path of embeddings data
     q_len (int): maximum question length (default is None)
     a_len (int): maximum answer length (default is None)
-    stopwords (bool): whether to remove stop words (default is True)
+    use_stopwords (bool): whether to remove stop words (default is True)
+    use_padding (bool): whether to pad sequences (default is True)
 
     Returns:
     relation files (mapping of question and answer pairs to corresponding label):
