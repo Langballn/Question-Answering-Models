@@ -9,7 +9,7 @@ from torch.utils import data
 
 def preprocess(train_file, dev_file, test_file, embed_file, q_len=None, a_len=None, use_stopwords=True, use_padding=True):
     '''
-    Reads in pretrained embeddings, train, development, and test data then preprocesses and serializes results
+    Reads in pretrained embeddings, train, development, and test data then preprocesses and serializes output for use in model
 
     Parameters:
     train_file: path of training data
