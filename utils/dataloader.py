@@ -1,4 +1,5 @@
 from torch.utils import data
+import numpy as np
 
 
 class Dataset(data.Dataset):
@@ -23,21 +24,9 @@ class Dataset(data.Dataset):
         ans = self.answers_lookup[ID[1]]
         y = self.labels[ID]
 
-        return ques, ans, y
+        # TO DO: DEBUG make numpy array / may not be needed
 
-    def test(self):
-        'Generates one sample of data'
-        index = 0
-
-        # Select sample
-        ID = self.relations[index]
-
-        # Load data and get label
-        ques = self.questions_lookup[ID[0]]
-        ans = self.answers_lookup[ID[1]]
-        y = self.labels[ID]
-
-        import pdb
-        pdb.set_trace()
+        ques = np.array(ques)
+        ans = np.array(ans)
 
         return ques, ans, y

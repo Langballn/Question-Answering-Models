@@ -72,7 +72,6 @@ def train():
     criterion = nn.BCELoss()
     optimizer = torch.optim.SGD(model.parameters(), lr=1e-4)
 
-    _, _, _ = training_set.test()
     # Loop over epochs
     for epoch in range(max_epochs):
         # Training
