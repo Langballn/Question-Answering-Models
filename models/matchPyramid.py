@@ -28,15 +28,13 @@ class MatchPyramid(nn.Module):
         embed.weight.requires_grad = False
         return embed
 
-    def get_input_matrix(self, q, a):
+    def get_input_matrix(self, q_lookup, a_lookup):
         # returns a matrix with cosine similarity of the inputs
-        import pdb
-        pdb.set_trace()
-        ans = self.embed(torch.LongTensor(a))
-        ques = self.embed(torch.LongTensor(q))
-        input = torch.Tensor(self.BATCH_SIZE, self.Q_LEN, self.A_LEN)
-        for i, ans in enumerate(ques):
-            input[i] = torch.mm(ques, ans[i].t())
+        ans = self.embed(torch.LongTensor(a_lookup))
+        ques = self.embed(torch.LongTensor(q_lookup))
+        input = torch.Tensor(self.BATCH_SIZE, 1, self.Q_LEN, self.A_LEN)
+        for i, q in enumerate(ques):
+            input[i][0] = torch.mm(q, ans[i].t())
         return input
 
     def forward(self, q, a):

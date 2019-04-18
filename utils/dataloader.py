@@ -24,9 +24,9 @@ class Dataset(data.Dataset):
         ans = self.answers_lookup[ID[1]]
         y = self.labels[ID]
 
-        # TO DO: DEBUG make numpy array / may not be needed
-
+        # convert to numpy array
         ques = np.array(ques)
         ans = np.array(ans)
+        y = np.array(y).astype(np.float32)
 
         return ques, ans, y
