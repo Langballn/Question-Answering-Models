@@ -24,3 +24,20 @@ class Dataset(data.Dataset):
         y = self.labels[ID]
 
         return ques, ans, y
+
+    def test(self):
+        'Generates one sample of data'
+        index = 0
+
+        # Select sample
+        ID = self.relations[index]
+
+        # Load data and get label
+        ques = self.questions_lookup[ID[0]]
+        ans = self.answers_lookup[ID[1]]
+        y = self.labels[ID]
+
+        import pdb
+        pdb.set_trace()
+
+        return ques, ans, y

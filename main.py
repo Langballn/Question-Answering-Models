@@ -43,15 +43,15 @@ def preprocess(train_file, dev_file, test_file, embed_file, q_len=None, a_len=No
 
 def train():
 
-    # Construct our model by instantiating the class
-    model = MatchPyramid()
-
     # Create data iterator
     # Parameters
     params = {'batch_size': 64,
               'shuffle': True,
               'num_workers': 1}
     max_epochs = 100
+
+    # Construct our model by instantiating the class
+    model = MatchPyramid(64, 32, 32)
 
     # Datasets
     relations = load_pkl('data/relations.pkl')
@@ -72,11 +72,11 @@ def train():
     criterion = nn.BCELoss()
     optimizer = torch.optim.SGD(model.parameters(), lr=1e-4)
 
+    _, _, _ = training_set.test()
     # Loop over epochs
     for epoch in range(max_epochs):
         # Training
         for local_batch_ques, local_batch_ans, local_labels in training_generator:
-
             # Forward pass: Compute predicted label based on question and answer
             pred_labels = model(local_batch_ques, local_batch_ans)
 
@@ -97,10 +97,10 @@ if __name__ == '__main__':
     test_file = 'data/wikiqa/WikiQA-test.txt'
     embed_file = 'data/embed/glove.6B.300d.txt'
 
-    # print('Preprocessing dataset and embeddings ....')
-    # preprocess(train_file, dev_file, test_file, embed_file,
-    #            q_len=32, a_len=32)
-    # print('preprocessing is complete.')
+    print('Preprocessing dataset and embeddings ....')
+    preprocess(train_file, dev_file, test_file, embed_file,
+               q_len=32, a_len=32)
+    print('preprocessing is complete.')
 
     print('Training model ...')
     train()

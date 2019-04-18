@@ -81,7 +81,6 @@ class Preprocesser:
                     if embeddings is None:
                         embeddings = np.random.rand(
                             self.vocab_len, len(vector))
-                        embeddings[0] = np.zeros(len(vector))
                     # save pretrained weights vector at word index
                     embeddings[idx] = vector
 
@@ -89,6 +88,7 @@ class Preprocesser:
         (rows, cols) = embeddings.shape
         magnitude = np.sqrt(
             np.sum(np.multiply(embeddings, embeddings), axis=1)).reshape(rows, 1)
+
         norm_embed = embeddings / magnitude
 
         if self.use_padding:

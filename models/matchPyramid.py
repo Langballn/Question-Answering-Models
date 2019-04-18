@@ -6,7 +6,7 @@ import numpy as np
 
 
 class MatchPyramid(nn.Module):
-    def __init__(self):
+    def __init__(self, BATCH_SIZE, Q_LEN, A_LEN):
         super(MatchPyramid, self).__init__()
         # load embeddings
         self.embed = self.load_embeddings()
@@ -16,6 +16,9 @@ class MatchPyramid(nn.Module):
         self.fc1 = torch.nn.Linear(18 * 16 * 16, 64)
         self.fc2 = torch.nn.Linear(64, 10)
         self.fc3 = torch.nn.Linear(10, 1)
+        self.BATCH_SIZE = BATCH_SIZE
+        self.Q_LEN = Q_LEN
+        self.A_LEN = A_LEN
 
     def load_embeddings(self):
         pretrained_weights = np.load('data/norm_embed.npy')
@@ -27,9 +30,14 @@ class MatchPyramid(nn.Module):
 
     def get_input_matrix(self, q, a):
         # returns a matrix with cosine similarity of the inputs
-        ques = self.embed(torch.LongTensor(q))
+        import pdb
+        pdb.set_trace()
         ans = self.embed(torch.LongTensor(a))
-        return torch.mm(ques, ans.t()).view(-1, 1, 32, 32)
+        ques = self.embed(torch.LongTensor(q))
+        input = torch.Tensor(self.BATCH_SIZE, self.Q_LEN, self.A_LEN)
+        for i, ans in enumerate(ques):
+            input[i] = torch.mm(ques, ans[i].t())
+        return input
 
     def forward(self, q, a):
         # get input matrix (cosine similarly bw question and answer embeddings)
